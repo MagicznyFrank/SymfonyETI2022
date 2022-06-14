@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BlogArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Integer;
 
 /**
  * @ORM\Entity(repositoryClass=BlogArticleRepository::class)
@@ -18,109 +19,109 @@ class BlogArticle
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $ShortDescription;
+    private $title;
 
     /**
      * @ORM\Column(type="text")
      */
-    private $LongDescription;
+    private $descritpion;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text")
      */
-    private $Image;
+    private $article;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
-    private $Created_at;
+    private $created_at;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="text")
      */
-    private $Author;
+    private $created_by;
 
     /**
-     * @ORM\ManyToOne(targetEntity=BlogCategory::class, inversedBy="Article")
+     * @ORM\ManyToOne(targetEntity=BlogCategory::class, inversedBy="categories")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Category;
+    private $category;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getShortDescription(): ?string
+    public function getTitle(): ?string
     {
-        return $this->ShortDescription;
+        return $this->title;
     }
 
-    public function setShortDescription(string $ShortDescription): self
+    public function setTitle(?string $title): self
     {
-        $this->ShortDescription = $ShortDescription;
+        $this->title = $title;
 
         return $this;
     }
 
-    public function getLongDescription(): ?string
+    public function getDescritpion(): ?string
     {
-        return $this->LongDescription;
+        return $this->descritpion;
     }
 
-    public function setLongDescription(string $LongDescription): self
+    public function setDescritpion(string $descritpion): self
     {
-        $this->LongDescription = $LongDescription;
+        $this->descritpion = $descritpion;
 
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getArticle(): ?string
     {
-        return $this->Image;
+        return $this->article;
     }
 
-    public function setImage(?string $Image): self
+    public function setArticle(string $article): self
     {
-        $this->Image = $Image;
+        $this->article = $article;
 
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeInterface
     {
-        return $this->Created_at;
+        return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $Created_at): self
+    public function setCreatedAt(\DateTimeInterface $created_at): self
     {
-        $this->Created_at = $Created_at;
+        $this->created_at = $created_at;
 
         return $this;
     }
 
-    public function getAuthor(): ?string
+    public function getCreatedBy(): ?string
     {
-        return $this->Author;
+        return $this->created_by;
     }
 
-    public function setAuthor(?string $Author): self
+    public function setCreatedBy(string $created_by): self
     {
-        $this->Author = $Author;
+        $this->created_by = $created_by;
 
         return $this;
     }
 
     public function getCategory(): ?BlogCategory
     {
-        return $this->Category;
+        return $this->category;
     }
 
-    public function setCategory(?BlogCategory $Category): self
+    public function setCategory(?BlogCategory $category): self
     {
-        $this->Category = $Category;
+        $this->category = $category;
 
         return $this;
     }

@@ -30,18 +30,23 @@ class BlogCategory
     private $description;
 
     /**
-     * @ORM\Column(type="datetime_immutable")
+     * @ORM\Column(type="datetime")
      */
     private $created_at;
 
     /**
-     * @ORM\OneToMany(targetEntity=BlogArticle::class, mappedBy="category")
+     * @ORM\Column(type="text")
      */
-    private $Article;
+    private $created_by;
+
+    /**
+     * @ORM\OneToMany(targetEntity=BlogArticle::class, mappedBy="categorry")
+     */
+    private $categories;
 
     public function __construct()
     {
-        $this->Article = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -73,14 +78,26 @@ class BlogCategory
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeImmutable
+    public function getCreatedAt(): ?\DateTimeInterface
     {
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    public function setCreatedAt(\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
+
+        return $this;
+    }
+
+    public function getCreatedBy(): ?string
+    {
+        return $this->created_by;
+    }
+
+    public function setCreatedBy(string $created_by): self
+    {
+        $this->created_by = $created_by;
 
         return $this;
     }
@@ -88,27 +105,27 @@ class BlogCategory
     /**
      * @return Collection<int, BlogArticle>
      */
-    public function getArticle(): Collection
+    public function getCategories(): Collection
     {
-        return $this->Article;
+        return $this->categories;
     }
 
-    public function addArticle(BlogArticle $article): self
+    public function addCategory(BlogArticle $category): self
     {
-        if (!$this->Article->contains($article)) {
-            $this->Article[] = $article;
-            $article->setCategory($this);
+        if (!$this->categories->contains($category)) {
+            $this->categories[] = $category;
+            $category->setCategory($this);
         }
 
         return $this;
     }
 
-    public function removeArticle(BlogArticle $article): self
+    public function removeCategory(BlogArticle $category): self
     {
-        if ($this->Article->removeElement($article)) {
+        if ($this->categories->removeElement($category)) {
             // set the owning side to null (unless already changed)
-            if ($article->getCategory() === $this) {
-                $article->setCategory(null);
+            if ($category->getCategory() === $this) {
+                $category->setCategory(null);
             }
         }
 

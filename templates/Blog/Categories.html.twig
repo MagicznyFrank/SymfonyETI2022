@@ -1,0 +1,27 @@
+{% extends "Blog/layout.html.twig" %}
+{% block head %}
+<h1>Categories: </h1>
+<a href="formC" style="border: none"><p>Add new Category</p></a>
+{% endblock %}
+
+{% block body %}
+<table style="border-collapse: collapse">
+    {% for category in categories %}
+          <tr style="text-align: left">
+                <th style="border: 2px solid ">Name</th>
+                <th style="border: 2px solid ">Description</th>
+                <th style="border: 2px solid ">Created_AT</th>
+                <th style="border: 2px solid ">Created_By</th>
+          </tr>
+          <tr style="text-align: center">
+
+             <td style="border: 2px solid ">{{ category.name}}</td>
+             <td style="border: 2px solid ">{{ category.description}}</td>
+             <td style="border: 2px solid ">{{ category.CreatedAt | date('d/m/Y H:i' )}}</td>
+             <td style="border: 2px solid ">{{ category.CreatedBy}}</td>
+
+          </tr>
+
+    {% endfor%}
+</table>
+{% endblock %}
